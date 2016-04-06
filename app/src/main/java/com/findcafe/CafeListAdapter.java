@@ -43,12 +43,15 @@ public class CafeListAdapter extends BaseAdapter {
 
         Cafe cafe = cafeList.get(position);
 
+        // Set values
         cafeNameView = (TextView)convertView.findViewById(R.id.cafe_name_view);
         cafeDistanceView = (TextView)convertView.findViewById(R.id.cafe_distance_view);
         cafeAddressView = (TextView)convertView.findViewById(R.id.cafe_address_view);
         cafeNameView.setText(cafe.getCafeName());
         cafeDistanceView.setText(String.valueOf(cafe.getCafeDistance()));
         cafeAddressView.setText(cafe.getCafeAddress());
+
+        // Bold cafe name text
         TextPaint tp = cafeNameView.getPaint();
         tp.setFakeBoldText(true);
 

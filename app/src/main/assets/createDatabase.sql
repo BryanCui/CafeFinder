@@ -4,7 +4,8 @@ CREATE TABLE cafes_table (
     address TEXT NOT NULL,
     latitude DOUBLE NOT NULL,
     longitude DOUBLE NOT NULL,
-    distance INTEGER NOT NULL
+    distance INTEGER NOT NULL,
+    phone TEXT
 );
 
 

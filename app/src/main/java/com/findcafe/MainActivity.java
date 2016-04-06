@@ -51,12 +51,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         databaseHelper = new DatabaseHelper(this);
+
+        // Get current location
         final LocationManager locationManager =
                 (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         final Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        // Load AsyncTask to retrieve data from foursquare
         final DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
 
+        // Load process dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait...");
         progressDialog.setMessage("FindCafe is updating data, this may take a few seconds...");
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         }).start();
 
+        // After data retrieved, load the UI
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -126,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         return super.onOptionsItemSelected(item);
     }
 
+    // LocationListener methods
     @Override
     public void onLocationChanged(Location location) {
 
@@ -151,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private JSONArray cafesArray;
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }

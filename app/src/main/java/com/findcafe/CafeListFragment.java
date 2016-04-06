@@ -45,6 +45,7 @@ public class CafeListFragment extends Fragment implements LocationListener {
         databaseHelper = new DatabaseHelper(this.getActivity());
         dataHandler = new DataHandler();
         ListView cafeListView = (ListView)view.findViewById(R.id.cafe_list_view);
+        // Set List Adapter
         cafeListView.setAdapter(new CafeListAdapter(this.getActivity(), dataHandler.getCafeList(databaseHelper)));
         return view;
     }

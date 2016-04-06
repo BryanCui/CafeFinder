@@ -12,6 +12,7 @@ public class DatabaseAsyncTask extends AsyncTask<Integer, Integer, String> {
     private double longitude;
     private DatabaseHelper databaseHelper;
     private DataHandler dataHandler;
+
     public DatabaseAsyncTask(DatabaseHelper databaseHelper, double latitude, double longitude) {
         this.databaseHelper = databaseHelper;
         this.latitude = latitude;
@@ -20,8 +21,11 @@ public class DatabaseAsyncTask extends AsyncTask<Integer, Integer, String> {
     }
     @Override
     protected String doInBackground(Integer... params) {
+        // First clear the database table, because when people move, data changes
         databaseHelper.clearTable();
+        // Retrieve data
         JSONArray cafesArray = dataHandler.getCafeDataFromServer(latitude, longitude);
+        // Insert into database
         dataHandler.insertCafeInfoIntoDatabase(databaseHelper, cafesArray);
         return null;
     }

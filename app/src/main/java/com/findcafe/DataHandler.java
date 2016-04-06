@@ -23,6 +23,12 @@ public class DataHandler {
 
     }
 
+    /**
+     *
+     * @param latitude latitude of current location
+     * @param longitude longitude of current location
+     * @return JSONArray including the result of the request
+     */
     public JSONArray getCafeDataFromServer(double latitude, double longitude) {
         try {
             String cafeRequest =
@@ -49,6 +55,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     *
+     * @param cafesJson JSONObject containing cafes information
+     * @return Cafe class instance
+     */
     public Cafe cafeInfoHandle(JSONObject cafesJson) {
         try {
             String cafeId = cafesJson.getString("id");
@@ -72,6 +83,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     *
+     * @param databaseHelper database operation helper
+     * @param cafesArray JSONArray containing cafes information
+     */
     public void insertCafeInfoIntoDatabase(DatabaseHelper databaseHelper, JSONArray cafesArray) {
         try {
             for (int i = 0; i < cafesArray.length(); i++) {
@@ -83,6 +99,11 @@ public class DataHandler {
         }
     }
 
+    /**
+     *
+     * @param databaseHelper database operation helper
+     * @return list of Cafe instance
+     */
     public List<Cafe> getCafeList(DatabaseHelper databaseHelper) {
         Cursor cafeCursor = databaseHelper.selectDataFromDatabase();
         List<Cafe> cafeList = new ArrayList<Cafe>();
@@ -93,8 +114,9 @@ public class DataHandler {
             double cafeLatitude = cafeCursor.getDouble(3);
             double cafeLongitude = cafeCursor.getDouble(4);
             int cafeDistance = cafeCursor.getInt(5);
+            String cafePhone = cafeCursor.getString(6);
 
-            Cafe cafe = new Cafe(cafeId,cafeName,cafeAddress,cafeLatitude,cafeLongitude, "", cafeDistance);
+            Cafe cafe = new Cafe(cafeId,cafeName,cafeAddress,cafeLatitude,cafeLongitude, cafePhone, cafeDistance);
             cafeList.add(cafe);
         }
         cafeCursor.close();

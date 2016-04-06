@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Delete table
     public void clearDatabase()
     {
         database.execSQL("DROP TABLE IF EXISTS " + tableName);
@@ -45,27 +46,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(database);
     }
 
+    // Get data from database
     public Cursor selectDataFromDatabase()
     {
         Cursor cursor = null;
-        String sql = "SELECT cafe_id, title, address, latitude, longitude, distance FROM " + tableName + " ORDER BY distance";
+        String sql = "SELECT cafe_id, title, address, latitude, longitude, distance, phone FROM " + tableName + " ORDER BY distance";
         cursor = database.rawQuery(sql, null);
 
         return cursor;
     }
 
+    // Clear database table data
     public void clearTable() {
         String deleteSql = "DELETE FROM cafes_table";
         database.execSQL(deleteSql);
     }
 
+    /**
+     *
+     * @param cafe Cafe instance
+     */
     public void insertDataIntoDatabase(Cafe cafe)
     {
+        // Remove useless characters
         String address = cafe.getCafeAddress().replaceAll("\"", "");
         address = address.replaceAll("\\[","");
         address = address.replaceAll("]","");
-        String insertSql = "insert into cafes_table(cafe_id, title, address, latitude, longitude, distance) " +
-                "values('" + cafe.getCafeId() + "','" + cafe.getCafeName().replaceAll("'", "") + "','" +address + "','" + cafe.getCafeLatitude() + "', '" + cafe.getCafeLongitude() + "', '" + cafe.getCafeDistance() + "')";
+        String insertSql = "insert into cafes_table(cafe_id, title, address, latitude, longitude, distance, phone) " +
+                "values('" + cafe.getCafeId() + "','" + cafe.getCafeName().replaceAll("'", "") + "','" +address + "','" + cafe.getCafeLatitude() + "', '" + cafe.getCafeLongitude() + "', '" + cafe.getCafeDistance() + "', '"+ cafe.getCafePhone() +"')";
         database.execSQL(insertSql);
     }
 
@@ -79,6 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.close();
     }
 
+    // Execute sql file to create database
     private void executeAssetsSQL(SQLiteDatabase db, String sqlFileName) {
         BufferedReader in = null;
         try {
