@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.findcafe">
+
+    <permission
+        android:name="android.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
     <!-- connect internet permit -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDtVKaMS2Jro1ZmQNcjwvkgPj6XR8Y8Skc"/>
     </application>
 
 </manifest>

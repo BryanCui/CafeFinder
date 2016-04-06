@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             if(position == 0) {
                 return CafeListFragment.newInstance();
             } else if(position == 1) {
-                return CafeListFragment.newInstance();
+                return MapFragment.newInstance();
             } else {
                 return CafeListFragment.newInstance();
             }
