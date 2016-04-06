@@ -23,7 +23,6 @@ public class DatabaseAsyncTask extends AsyncTask<Integer, Integer, String> {
         databaseHelper.clearTable();
         JSONArray cafesArray = dataHandler.getCafeDataFromServer(latitude, longitude);
         dataHandler.insertCafeInfoIntoDatabase(databaseHelper, cafesArray);
-        System.out.println("FinishedFinishedFinishedFinishedFinishedFinishedFinishedFinishedFinishedFinished");
         return null;
     }
 

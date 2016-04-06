@@ -32,7 +32,6 @@ public class DataHandler {
                             "&radius=1000&ll=" + latitude + "," + longitude +
                             "&query=coffee";
 
-            //Client client = ClientBuilder.newClient();
             Client client = ClientBuilder.newBuilder().build();
             Response requestCafeResponse = client.target(cafeRequest)
                     .request(MediaType.APPLICATION_JSON_TYPE)
@@ -77,7 +76,6 @@ public class DataHandler {
         try {
             for (int i = 0; i < cafesArray.length(); i++) {
                 databaseHelper.insertDataIntoDatabase(cafeInfoHandle(cafesArray.getJSONObject(i)));
-                System.out.println(cafeInfoHandle(cafesArray.getJSONObject(i)).getCafeAddress()+"~~~~~~~~~~~~_______^^^^^^^^^^");
             }
         } catch (Exception e) {
             e.printStackTrace();

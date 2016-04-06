@@ -50,9 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
         String sql = "SELECT cafe_id, title, address, latitude, longitude, distance FROM " + tableName + " ORDER BY distance";
         cursor = database.rawQuery(sql, null);
-        if(cursor.moveToNext()) {
-            System.out.println(cursor.getString(2) + "============`=`=`=`=`=`=`");
-        }
+
         return cursor;
     }
 
@@ -64,14 +62,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insertDataIntoDatabase(Cafe cafe)
     {
         String address = cafe.getCafeAddress().replaceAll("\"", "");
+        address = address.replaceAll("\\[","");
+        address = address.replaceAll("]","");
         String insertSql = "insert into cafes_table(cafe_id, title, address, latitude, longitude, distance) " +
                 "values('" + cafe.getCafeId() + "','" + cafe.getCafeName().replaceAll("'", "") + "','" +address + "','" + cafe.getCafeLatitude() + "', '" + cafe.getCafeLongitude() + "', '" + cafe.getCafeDistance() + "')";
-//        System.out.println("Id: " + cafe.getCafeId());
-//        System.out.println("Name: " + cafe.getCafeName().replaceAll("'", ""));
-//        System.out.println("Address: " + cafe.getCafeAddress());
-//        System.out.println("Lat: " + cafe.getCafeLatitude());
-//        System.out.println("Lng: " + cafe.getCafeLongitude());
-//        System.out.println("Distance: " + cafe.getCafeDistance());
         database.execSQL(insertSql);
     }
 

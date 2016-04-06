@@ -1,6 +1,7 @@
 package com.findcafe;
 
 import android.content.Context;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +49,8 @@ public class CafeListAdapter extends BaseAdapter {
         cafeNameView.setText(cafe.getCafeName());
         cafeDistanceView.setText(String.valueOf(cafe.getCafeDistance()));
         cafeAddressView.setText(cafe.getCafeAddress());
-
-        // Set TypeFace
-//        Typeface headerFont = Utils.getGothamBold(context.getAssets());
-//        Typeface bodyFont = Utils.getGothamBook(context.getAssets());
-//        artworkTitleView.setTypeface(headerFont);
-//        artworkBriefDescriptionView.setTypeface(bodyFont);
+        TextPaint tp = cafeNameView.getPaint();
+        tp.setFakeBoldText(true);
 
         return convertView;
     }

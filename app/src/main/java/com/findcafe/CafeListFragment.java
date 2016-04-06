@@ -55,9 +55,7 @@ public class CafeListFragment extends Fragment implements LocationListener {
      */
     public static CafeListFragment newInstance() {
         CafeListFragment fragment = new CafeListFragment();
-//        Bundle args = new Bundle();
-//        args.putString("cafeArray", cafesArray.toString());
-//        fragment.setArguments(args);
+
         return fragment;
     }
 

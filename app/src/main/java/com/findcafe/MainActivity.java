@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         final Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         final DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
-        //databaseAsyncTask.execute();
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait...");
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
                 databaseAsyncTask.execute();
                 while(true) {
                     if(databaseAsyncTask.getStatus() == AsyncTask.Status.FINISHED) {
