@@ -7,16 +7,15 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
+import android.os.Handler;
 
 import java.util.List;
 
@@ -32,7 +31,8 @@ public class CafeListFragment extends Fragment implements LocationListener {
     private double longitude;
     private DatabaseHelper databaseHelper;
     private DataHandler dataHandler;
-
+    private CafeListAdapter cafeListAdapter;
+    private Handler handler;
     public CafeListFragment() {
         // Required empty public constructor
     }
@@ -42,11 +42,24 @@ public class CafeListFragment extends Fragment implements LocationListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cafe_list, container, false);
+        final Context context = this.getActivity();
         databaseHelper = new DatabaseHelper(this.getActivity());
         dataHandler = new DataHandler();
-        ListView cafeListView = (ListView)view.findViewById(R.id.cafe_list_view);
+        LocationManager locationManager =
+                (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 0, this);
+        final ListView cafeListView = (ListView)view.findViewById(R.id.cafe_list_view);
         // Set List Adapter
-        cafeListView.setAdapter(new CafeListAdapter(this.getActivity(), dataHandler.getCafeList(databaseHelper)));
+        cafeListAdapter = new CafeListAdapter(this.getActivity(), dataHandler.getCafeList(databaseHelper));
+        cafeListView.setAdapter(cafeListAdapter);
+//        handler = new Handler();
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//
+//            }
+//        });
         return view;
     }
 
@@ -63,7 +76,14 @@ public class CafeListFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-
+        DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
+        databaseAsyncTask.execute();
+        while(true) {
+            if(databaseAsyncTask.getStatus() == AsyncTask.Status.FINISHED) {
+                cafeListAdapter.notifyDataSetInvalidated();
+                break;
+            }
+        }
     }
 
     @Override
