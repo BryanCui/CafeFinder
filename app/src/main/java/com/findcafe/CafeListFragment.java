@@ -40,7 +40,8 @@ public class CafeListFragment extends Fragment implements LocationListener {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 0, this);
         final ListView cafeListView = (ListView)view.findViewById(R.id.cafe_list_view);
         // Set List Adapter
-        cafeListAdapter = new CafeListAdapter(this.getActivity(), dataHandler.getCafeList(databaseHelper));
+        cafeListAdapter = new CafeListAdapter(this.getActivity(),
+                dataHandler.getCafeList(databaseHelper));
         cafeListView.setAdapter(cafeListAdapter);
 
         return view;
@@ -61,7 +62,8 @@ public class CafeListFragment extends Fragment implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         // When location changes, update data in the list
-        DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
+        DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper,
+                location.getLatitude(), location.getLongitude());
         databaseAsyncTask.execute();
         cafeListAdapter.update(dataHandler.getCafeList(databaseHelper));
         cafeListAdapter.notifyDataSetChanged();

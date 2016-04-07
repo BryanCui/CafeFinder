@@ -51,7 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor selectDataFromDatabase()
     {
         Cursor cursor = null;
-        String sql = "SELECT cafe_id, title, address, latitude, longitude, distance, phone FROM " + tableName + " ORDER BY distance";
+        String sql = "SELECT cafe_id, title, address, latitude, longitude, distance, " +
+                "phone FROM " + tableName + " ORDER BY distance";
         cursor = database.rawQuery(sql, null);
 
         return cursor;
@@ -73,8 +74,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String address = cafe.getCafeAddress().replaceAll("\"", "");
         address = address.replaceAll("\\[","");
         address = address.replaceAll("]","");
-        String insertSql = "insert into cafes_table(cafe_id, title, address, latitude, longitude, distance, phone) " +
-                "values('" + cafe.getCafeId() + "','" + cafe.getCafeName().replaceAll("'", "") + "','" +address + "','" + cafe.getCafeLatitude() + "', '" + cafe.getCafeLongitude() + "', '" + cafe.getCafeDistance() + "', '"+ cafe.getCafePhone() +"')";
+        String insertSql = "insert into cafes_table(cafe_id, title, address, latitude, longitude, "
+                + "distance, phone) values('" + cafe.getCafeId() + "','"
+                + cafe.getCafeName().replaceAll("'", "") + "','" +address + "','"
+                + cafe.getCafeLatitude() + "', '" + cafe.getCafeLongitude() + "', '"
+                + cafe.getCafeDistance() + "', '"+ cafe.getCafePhone() +"')";
         database.execSQL(insertSql);
     }
 
@@ -116,7 +120,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean isTableExists(String tableName) {
-        Cursor cursor = database.rawQuery("select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'", null);
+        Cursor cursor =
+                database.rawQuery("select DISTINCT tbl_name from sqlite_master where " +
+                        "tbl_name = '"+tableName+"'", null);
         if(cursor!=null) {
             if(cursor.getCount()>0) {
                 cursor.close();

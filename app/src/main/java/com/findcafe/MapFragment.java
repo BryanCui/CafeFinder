@@ -53,7 +53,8 @@ public class MapFragment extends Fragment {
         databaseHelper = new DatabaseHelper(this.getActivity());
         List<Cafe> cafeList = dataHandler.getCafeList(databaseHelper);
 
-        LocationManager locationManager = (LocationManager)this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager =
+                (LocationManager)this.getActivity().getSystemService(Context.LOCATION_SERVICE);
 
         Criteria criteria = new Criteria();
 
@@ -67,11 +68,13 @@ public class MapFragment extends Fragment {
         double longitude = myLocation.getLongitude();
 
         // Zoom in the Google Map
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()), 15));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.getLatitude(),
+                myLocation.getLongitude()), 15));
 
 
         for(int i = 0; i < cafeList.size(); i++) {
-            LatLng markerLatLng = new LatLng(cafeList.get(i).getCafeLatitude(), cafeList.get(i).getCafeLongitude());
+            LatLng markerLatLng = new LatLng(cafeList.get(i).getCafeLatitude(),
+                    cafeList.get(i).getCafeLongitude());
             //Create MarkerOptions
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(markerLatLng);

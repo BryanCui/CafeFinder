@@ -32,7 +32,8 @@ public class DataHandler {
     public JSONArray getCafeDataFromServer(double latitude, double longitude) {
         try {
             String cafeRequest =
-                    "https://api.foursquare.com/v2/venues/search?client_id=ACAO2JPKM1MXHQJCK45IIFKRFR2ZVL0QASMCBCG5NPJQWF2G" +
+                    "https://api.foursquare.com/v2/venues/search?" +
+                            "client_id=ACAO2JPKM1MXHQJCK45IIFKRFR2ZVL0QASMCBCG5NPJQWF2G" +
                             "&client_secret=YZCKUYJ1WHUV2QICBXUBEILZI1DMPUIDP5SHV043O04FKBHL" +
                             "&v=20160315" +
                             "&radius=1000&ll=" + latitude + "," + longitude +
@@ -116,7 +117,8 @@ public class DataHandler {
             int cafeDistance = cafeCursor.getInt(5);
             String cafePhone = cafeCursor.getString(6);
 
-            Cafe cafe = new Cafe(cafeId,cafeName,cafeAddress,cafeLatitude,cafeLongitude, cafePhone, cafeDistance);
+            Cafe cafe = new Cafe(cafeId,cafeName,cafeAddress,cafeLatitude,cafeLongitude,
+                    cafePhone, cafeDistance);
             cafeList.add(cafe);
         }
         cafeCursor.close();

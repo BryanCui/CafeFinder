@@ -56,10 +56,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         final LocationManager locationManager =
                 (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-        final Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        final Location location =
+                locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         // Load AsyncTask to retrieve data from foursquare
-        final DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
+        final DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper,
+                location.getLatitude(), location.getLongitude());
 
         // Load process dialog
         progressDialog = new ProgressDialog(this);
