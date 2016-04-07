@@ -29,6 +29,10 @@ public class CafeListAdapter extends BaseAdapter {
         layoutInflater = LayoutInflater.from(this.context);
     }
 
+    public void update(List<Cafe> cafeList) {
+        this.cafeList = cafeList;
+    }
+
     @Override
     public int getCount() {
         return cafeList.size();

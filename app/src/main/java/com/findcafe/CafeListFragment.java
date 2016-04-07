@@ -78,12 +78,8 @@ public class CafeListFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
         databaseAsyncTask.execute();
-        while(true) {
-            if(databaseAsyncTask.getStatus() == AsyncTask.Status.FINISHED) {
-                cafeListAdapter.notifyDataSetInvalidated();
-                break;
-            }
-        }
+        cafeListAdapter.update(dataHandler.getCafeList(databaseHelper));
+        cafeListAdapter.notifyDataSetChanged();
     }
 
     @Override
