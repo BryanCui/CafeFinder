@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database = getWritableDatabase();
     }
 
+    // Create database
     @Override
     public void onCreate(SQLiteDatabase db) {
         executeAssetsSQL(db, "createDatabase.sql");

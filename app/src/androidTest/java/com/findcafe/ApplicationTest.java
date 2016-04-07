@@ -28,7 +28,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         assertTrue(arrayTest.length() > 0);
     }
 
-
     @Test
     public void testCafeInfoHandle() {
         try {
@@ -50,19 +49,4 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         }
     }
 
-//    @Test
-//    public void testDataInsert() {
-//        try {
-//            double latitudeTest = -37.7980844;
-//            double longitudeTest = 144.9589147;
-//            JSONArray arrayTest = dataHandlerTest.getCafeDataFromServer(latitudeTest, longitudeTest);
-//
-//            dataHandlerTest.insertCafeInfoIntoDatabase(databaseHelperTest, arrayTest);
-//            List<Cafe> testList = dataHandlerTest.getCafeList(databaseHelperTest);
-//            assertEquals(testList.size(), arrayTest.length());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 }

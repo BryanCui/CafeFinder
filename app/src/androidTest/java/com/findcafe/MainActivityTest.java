@@ -37,6 +37,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         solo.finishOpenedActivities();
     }
 
+    // Test database
     public void testDatabase() throws Exception {
         DataHandler dataHandlerTest = new DataHandler();
         DatabaseHelper databaseHelperTest = new DatabaseHelper(getActivity());

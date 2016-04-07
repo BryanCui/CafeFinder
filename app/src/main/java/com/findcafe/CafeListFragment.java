@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,11 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-
-import android.os.Handler;
-
-import java.util.List;
 
 
 /**
@@ -25,14 +19,9 @@ import java.util.List;
  */
 public class CafeListFragment extends Fragment implements LocationListener {
 
-    private List<Cafe> cafeList;
-    private JSONArray cafesArray;
-    private double latitude;
-    private double longitude;
     private DatabaseHelper databaseHelper;
     private DataHandler dataHandler;
     private CafeListAdapter cafeListAdapter;
-    private Handler handler;
     public CafeListFragment() {
         // Required empty public constructor
     }
@@ -45,6 +34,7 @@ public class CafeListFragment extends Fragment implements LocationListener {
         final Context context = this.getActivity();
         databaseHelper = new DatabaseHelper(this.getActivity());
         dataHandler = new DataHandler();
+        // Get current location
         LocationManager locationManager =
                 (LocationManager) this.getActivity().getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 0, this);
@@ -52,14 +42,7 @@ public class CafeListFragment extends Fragment implements LocationListener {
         // Set List Adapter
         cafeListAdapter = new CafeListAdapter(this.getActivity(), dataHandler.getCafeList(databaseHelper));
         cafeListView.setAdapter(cafeListAdapter);
-//        handler = new Handler();
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//
-//            }
-//        });
+
         return view;
     }
 
@@ -74,8 +57,10 @@ public class CafeListFragment extends Fragment implements LocationListener {
     }
 
 
+
     @Override
     public void onLocationChanged(Location location) {
+        // When location changes, update data in the list
         DatabaseAsyncTask databaseAsyncTask = new DatabaseAsyncTask(databaseHelper, location.getLatitude(), location.getLongitude());
         databaseAsyncTask.execute();
         cafeListAdapter.update(dataHandler.getCafeList(databaseHelper));

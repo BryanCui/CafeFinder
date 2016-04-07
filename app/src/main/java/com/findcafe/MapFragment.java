@@ -66,9 +66,6 @@ public class MapFragment extends Fragment {
         // Get longitude of the current location
         double longitude = myLocation.getLongitude();
 
-        // Create a LatLng object for the current location
-        LatLng latLng = new LatLng(latitude, longitude);
-
         // Zoom in the Google Map
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()), 15));
 
@@ -79,7 +76,7 @@ public class MapFragment extends Fragment {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(markerLatLng);
 
-            Marker marker = map.addMarker(markerOptions);//.title(artworkTitle).snippet(shortDescription));
+            Marker marker = map.addMarker(markerOptions);
             marker.setTitle(cafeList.get(i).getCafeName());
         }
         return view;
